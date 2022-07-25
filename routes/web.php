@@ -13,4 +13,26 @@
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+Route::prefix('kgb')->group(function () {
+    Route::get('/monitoring', function () {
+        return view('kgb.kgb-monitoring');
+    })->name('kgb.monitoring');
+    Route::get('/kelola', function () {
+        return view('kgb.kgb-kelola');
+    })->name('kgb.kelola');
 });
+
+Route::prefix('spmt')->group(function () {
+    Route::get('/monitoring', function () {
+        return view('spmt.spmt-monitoring');
+    })->name('spmt.monitoring');
+    Route::get('/kelola', function () {
+        return view('spmt.spmt-kelola');
+    })->name('spmt.kelola');
+});
+
+Route::get('/pegawai', function () {
+    return view('pegawai');
+})->name('pegawai');
