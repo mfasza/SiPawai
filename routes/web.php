@@ -36,3 +36,7 @@ Route::prefix('spmt')->group(function () {
 Route::get('/pegawai', function () {
     return view('pegawai');
 })->name('pegawai');
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
