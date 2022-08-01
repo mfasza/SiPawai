@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'nip'
     ];
 
     /**
@@ -25,15 +25,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * one to one relationship with pegawais table
+     * 
+     * @var string
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function pegawai()
+    {
+        return $this->belongsTo('App\Pegawai', 'users.nip', 'pegawais.nip');
+    }
 }
