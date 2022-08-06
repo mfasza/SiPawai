@@ -38,7 +38,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Logout</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+        <a class="nav-link" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
       </li>
       
     </ul>
@@ -61,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{ asset('/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Nama Pegawai</a>
+          <a href="" class="d-block">{{ $namaUser }}</a>
         </div>
       </div>
 
@@ -93,12 +100,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Monitoring</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a id="kgb-kelola" href="{{ route("kgb.kelola") }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kelola</p>
-                </a>
-              </li>
+              @if (Auth::user()->role == "admin")
+                <li class="nav-item">
+                  <a id="kgb-kelola" href="{{ route("kgb.kelola") }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Kelola</p>
+                  </a>
+                </li>
+              @endif
             </ul>
           </li>
           <li id="spmt-tree" class="nav-item has-treeview">
@@ -116,22 +125,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Monitoring</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a id="spmt-kelola" href="{{ route("spmt.kelola") }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kelola</p>
-                </a>
-              </li>
+              @if (Auth::user()->role == "admin")
+                <li class="nav-item">
+                  <a id="spmt-kelola" href="{{ route("spmt.kelola") }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Kelola</p>
+                  </a>
+                </li>
+              @endif
             </ul>
           </li>
-          <li class="nav-item">
-            <a id="pegawai" href="{{ route('pegawai') }}" class="nav-link">
-              <i class="fas fa-user"></i>
-              <p>
-                Kelola Pegawai
-              </p>
-            </a>
-          </li>
+          @if (Auth::user()->role == "admin")
+            <li class="nav-item">
+              <a id="pegawai" href="{{ route('pegawai') }}" class="nav-link">
+                <i class="fas fa-user"></i>
+                <p>
+                  Kelola Pegawai
+                </p>
+              </a>
+            </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

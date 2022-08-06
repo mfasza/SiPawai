@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::prefix('kgb')->group(function () {
+Route::middleware(['auth'])->prefix('kgb')->group(function () {
     Route::get('/monitoring', function () {
         return view('kgb.kgb-monitoring');
     })->name('kgb.monitoring');
@@ -24,7 +20,7 @@ Route::prefix('kgb')->group(function () {
     })->name('kgb.kelola');
 });
 
-Route::prefix('spmt')->group(function () {
+Route::middleware(['auth'])->prefix('spmt')->group(function () {
     Route::get('/monitoring', function () {
         return view('spmt.spmt-monitoring');
     })->name('spmt.monitoring');
@@ -33,10 +29,8 @@ Route::prefix('spmt')->group(function () {
     })->name('spmt.kelola');
 });
 
-Route::get('/pegawai', function () {
-    return view('pegawai');
-})->name('pegawai');
+Route::middleware(['auth'])->get('/pegawai', 'PegawaiController@index')->name('pegawai');
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

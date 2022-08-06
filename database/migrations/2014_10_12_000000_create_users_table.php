@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('role', ['admin', 'user']);
             $table->bigInteger('nip')->unsigned();
             $table->timestamps();
         });

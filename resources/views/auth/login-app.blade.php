@@ -32,6 +32,7 @@
       <p class="login-box-msg">Masuk untuk Menggunakan Aplikasi</p>
 
       <form action="{{ route('login') }}" method="post">
+        @csrf
         <div class="input-group mb-3">
           <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
           @error('email')
