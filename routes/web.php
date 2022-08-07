@@ -17,7 +17,7 @@ Route::middleware(['auth'])->prefix('kgb')->group(function () {
     })->name('kgb.monitoring');
     Route::get('/kelola', function () {
         return view('kgb.kgb-kelola');
-    })->name('kgb.kelola');
+    })->name('kgb.kelola')->middleware('isAdmin');
 });
 
 Route::middleware(['auth'])->prefix('spmt')->group(function () {
@@ -26,10 +26,10 @@ Route::middleware(['auth'])->prefix('spmt')->group(function () {
     })->name('spmt.monitoring');
     Route::get('/kelola', function () {
         return view('spmt.spmt-kelola');
-    })->name('spmt.kelola');
+    })->name('spmt.kelola')->middleware('isAdmin');
 });
 
-Route::middleware(['auth'])->get('/pegawai', 'PegawaiController@index')->name('pegawai');
+Route::middleware(['auth', 'isAdmin'])->get('/pegawai', 'PegawaiController@index')->name('pegawai');
 
 Auth::routes();
 
