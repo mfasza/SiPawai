@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'user']);
+            $table->string('foto')->default('\img\user2-160x160.jpg');
             $table->bigInteger('nip')->unsigned();
             $table->timestamps();
         });

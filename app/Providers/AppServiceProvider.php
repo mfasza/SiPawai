@@ -29,10 +29,10 @@ class AppServiceProvider extends ServiceProvider
         //compose all the views....
         view()->composer(['home', 'pegawai', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'kgb.kgb-monitoring', 'kgb.kgb-kelola'], function ($view) 
         {
-            $namaUser = Pegawai::find(Auth::user()->nip)->nama;
+            $user = Pegawai::join('users', 'pegawais.nip', '=', 'users.nip')->find(Auth::user()->nip);
             
             //...with this variable
-            $view->with('namaUser', $namaUser );    
+            $view->with('user', $user );    
         });
     }
 }
