@@ -36,8 +36,18 @@ class pegawai extends Model
      * 
      * @var string
      */
-    public function user()
+    public function users()
     {
-        return $this->hasOne('App\Pegawai', 'users.nip', 'pegawais.nip');
+        return $this->hasOne(Pegawai::class, 'nip', 'nip');
+    }
+
+    /**
+     * many to one relationship with golongans table
+     * 
+     * @var string
+     */
+    public function golongans()
+    {
+        return $this->belongsTo(Golongan::class, 'id_golongan', 'id');
     }
 }

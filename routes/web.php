@@ -29,7 +29,7 @@ Route::middleware(['auth'])->prefix('spmt')->group(function () {
     })->name('spmt.kelola')->middleware('isAdmin');
 });
 
-Route::middleware(['auth', 'isAdmin'])->get('/pegawai', 'PegawaiController@index')->name('pegawai');
+Route::middleware(['auth', 'isAdmin'])->resource('pegawai', 'PegawaiController');
 
 Auth::routes();
 

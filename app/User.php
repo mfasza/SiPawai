@@ -33,8 +33,8 @@ class User extends Authenticatable
      * 
      * @var string
      */
-    public function pegawai()
+    public function pegawais()
     {
-        return $this->belongsTo('App\Pegawai', 'users.nip', 'pegawais.nip');
+        return $this->belongsTo(Pegawai::class, 'nip', 'nip');
     }
 }

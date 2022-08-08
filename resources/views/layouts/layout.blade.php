@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{ asset($user->foto) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info text-wrap">
-          <a href="" class="d-block">{{ $user->nama }}</a>
+          <a href="#" class="d-block">{{ $user->nama }}</a>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @if (Auth::user()->role == "admin")
             <li class="nav-item">
-              <a id="pegawai" href="{{ route('pegawai') }}" class="nav-link">
+              <a id="pegawai" href="{{ route('pegawai.index') }}" class="nav-link">
                 <i class="fas fa-user"></i>
                 <p>
                   Kelola Pegawai
@@ -218,5 +218,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   });
 </script>
+@yield('js_script')
 </body>
 </html>

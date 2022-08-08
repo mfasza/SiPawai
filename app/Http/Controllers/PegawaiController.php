@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\pegawai;
+use App\golongan;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -14,7 +15,9 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        return view('pegawai');
+        $pegawais = Pegawai::select('nip', 'nama', 'jabatan', 'status', 'tmt_cpns', 'id_golongan')->get();
+
+        return view('pegawai', compact(['pegawais']));
     }
 
     /**
@@ -24,7 +27,8 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        $golongans = Golongan::select(['id', 'nama_golongan'])->get();
+        return view('pegawai-create', compact('golongans'));
     }
 
     /**
@@ -80,6 +84,7 @@ class PegawaiController extends Controller
      */
     public function destroy(pegawai $pegawai)
     {
-        //
+        $pegawai->delete();
+        return redirect(route('pegawai.index'));
     }
 }

@@ -27,6 +27,7 @@
           <div class="col-sm-12">
             <div class="card">
               <div class="card-body">
+                <a href="{{route('pegawai.create')}}" class="btn btn-sm btn-success" role="button">Input Data Baru &nbsp;<i class="fas fa-plus"></i></a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -40,50 +41,22 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Muhammad Faza</td>
-                    <td>Staf Fungsi IPDS</td>
-                    <td>III/A</td>
-                    <td>PNS</td>
-                    <td>01/04/2021</td>
-                    <td>
-                      <div>
-                        <a href="#" class="btn btn-primary" role="button">Ubah</a>
-                        <a href="#" class="btn btn-danger" role="button">Hapus</a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Abdul Haris Rizaldy
-                    </td>
-                    <td>Staf Fungsi Distribusi</td>
-                    <td>III/A</td>
-                    <td>PNS</td>
-                    <td>01/04/2021</td>
-                    <td>
-                      <div>
-                        <a href="#" class="btn btn-primary" role="button">Ubah</a>
-                        <a href="#" class="btn btn-danger" role="button">Hapus</a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Rakai Al Baihaqi
-                    </td>
-                    <td>Staf Fungsi Sosial</td>
-                    <td>III/A</td>
-                    <td>CPNS</td>
-                    <td>01/12/2021</td>
-                    <td>
-                      <div>
-                        <a href="#" class="btn btn-primary" role="button">Ubah</a>
-                        <a href="#" class="btn btn-danger" role="button">Hapus</a>
-                      </div>
-                    </td>
-                  </tr>
+                  @foreach ($pegawais as $i => $p)
+                    <tr>
+                      <td>{{$i+1}}</td>
+                      <td>{{$p->nama}}</td>
+                      <td>{{$p->jabatan}}</td>
+                      <td>{{$p->golongans->nama_golongan}}</td>
+                      <td>{{$p->status}}</td>
+                      <td>{{$p->tmt_cpns}}</td>
+                      <td>
+                        <div>
+                          <a href="#" class="btn btn-sm btn-primary" role="button">Ubah</a>
+                          <a href="#" class="btn btn-sm btn-danger hapus" data-nip="{{$p->nip}}" data-nama="{{$p->nama}}" data-toggle="modal" data-target="#modal_hapus" role="button">Hapus</a>
+                        </div>
+                      </td>
+                    </tr>
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -99,4 +72,42 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  @endsection
+
+  <div class="modal fade" id="modal_hapus">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Data</h4></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <p>Apakah Anda yakin akan menghapus data <span id="info"></span>&quest;</p>
+          <form id="form_hapus" action="{{url('pegawai/')}}" method="post">
+            @method("delete")
+            @csrf
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button>
+          <button type="submit" class="btn btn-danger">Hapus</button>
+        </div>
+          </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+@endsection
+@section('js_script')
+  <script>
+    var base_loc = window.location.href + '/';
+    $('.hapus').on('click', function(event){
+      var peg_nip = $(this).data('nip');
+      var peg_nama = $(this).data('nama');
+      $('#info').html(peg_nama);  
+      $('#form_hapus').attr("action", base_loc+peg_nip);
+    });
+  </script>
+@endsection
