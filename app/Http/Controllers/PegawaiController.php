@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\pegawai;
 use App\golongan;
+use App\User;
+use App\Http\Requests\StorePegawai;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -37,9 +40,29 @@ class PegawaiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePegawai $request)
     {
-        //
+        $validated = $request->validated();
+        $pegawai = new Pegawai;
+        $pegawai->nip = $validated['nip'];
+        $pegawai->nama = $validated['nama'];
+        $pegawai->jabatan = $validated['jabatan'];
+        $pegawai->id_golongan = $validated['golongan'];
+        $pegawai->tmt_cpns = $validated['tmt_cpns'];
+        $pegawai->save();
+        
+        if ($validated['foto']) {
+            $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
+        }
+
+        $user = new User;
+        $user->email = $validated['email'];
+        $user->password = Hash::make($validated['password']);
+        $user->nip = $validated['nip'];
+        $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
+        $user->save();
+
+        return redirect()->route('pegawai.index');;
     }
 
     /**

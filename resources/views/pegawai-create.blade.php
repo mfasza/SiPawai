@@ -29,11 +29,13 @@
             <div class="card">
               <div class="card-body">
                 <a href="{{route('pegawai.index')}}" class="btn btn-sm btn-secondary" role="button"><i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
-                <form>
+                <form action="{{route('pegawai.store')}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  @method("post")
                   <div class="card-body">
                     <div class="form-group">
                       <label for="nip">NIP</label>
-                      <input name="nip" type="number" minlength="18" min="99999999999999999" max="999999999999999999" class="form-control @error('nip') is-invalid @enderror" id="nip" placeholder="Masukkan NIP Pegawai..." required autofocus>
+                      <input name="nip" type="number" class="form-control @error('nip') is-invalid @enderror" id="nip" placeholder="Masukkan NIP Pegawai..." value="{{old('nip')}}" required autofocus>
                       @error('nip')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="form-group">
                       <label for="nama">Nama</label>
-                      <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama Pegawai..." required>
+                      <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama Pegawai..." value="{{old('nama')}}" required>
                       @error('nama')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -51,7 +53,7 @@
                     </div>
                     <div class="form-group">
                       <label for="jabatan">Jabatan</label>
-                      <input name="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" placeholder="Jabatan..." required>
+                      <input name="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" placeholder="Jabatan..." value="{{old('jabatan')}}" required>
                       @error('jabatan')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -60,21 +62,26 @@
                     </div>
                     <div class="form-group">
                       <label>Golongan</label>
-                      <select class="custom-select" required>
-                        <option>Pilih Kelas Golongan...</option>
+                      <select name="golongan" class="custom-select @error('golongan') is-invalid @enderror" required>
+                        <option value="0">Pilih Kelas Golongan...</option>
                         @foreach ($golongans as $g)
-                          <option value="{{$g->id}}">{{$g->nama_golongan}}</option>
+                          <option value="{{$g->id}}" @if (old('golongan') == $g->id) selected @endif>{{$g->nama_golongan}}</option>
                         @endforeach
-                      </select>
+                    </select>
+                    @error('golongan')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                     </div>
                     <div class="form-group">
                       <label>Status</label>
                       <div class="custom-control custom-radio">
-                        <input id="CPNS" class="custom-control-input" type="radio" name="status" value="CPNS" required>
+                        <input id="CPNS" class="custom-control-input" type="radio" name="status" value="CPNS" required @if (old('status') == 'CPNS') checked @endif>
                         <label for="CPNS" class="custom-control-label">CPNS</label>
                       </div>
                       <div class="custom-control custom-radio">
-                        <input id="PNS" class="custom-control-input" type="radio" name="status" value="PNS" required>
+                        <input id="PNS" class="custom-control-input" type="radio" name="status" value="PNS" required @if (old('status') == 'PNS') checked @endif>
                         <label for="PNS" class="custom-control-label">PNS</label>
                       </div>
                     </div>
@@ -84,7 +91,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input name="tmt_cpns" id="datemask" type="text" class="form-control @error('tmt_cpns') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
+                        <input name="tmt_cpns" id="datemask" type="text" class="form-control @error('tmt_cpns') is-invalid @enderror" value="{{old('tmt_cpns')}}" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask required>
                         @error('tmt_cpns')
                           <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -94,8 +101,8 @@
                       <!-- /.input group -->
                     </div>
                     <div class="form-group">
-                      <label for="email">Email</label>
-                      <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan Alamat Email..." required>
+                      <label for="email">Email BPS</label>
+                      <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{old('email')}}" placeholder="Masukkan Alamat Email BPS..." required>
                       @error('email')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -104,19 +111,41 @@
                     </div>
                     <div class="form-group">
                       <label for="password">Password</label>
-                      <input name="password" type="password" class="form-control" id="password" placeholder="Masukkan Password" required>
+                      <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Masukkan Password" value="{{old('password')}}" required>
+                      @error('password')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label>Peran</label>
                       <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="admin" name="role">
+                        <input class="custom-control-input" type="radio" id="admin" name="role" value="admin" @if (old('role') == 'admin') checked @endif>
                         <label for="admin" class="custom-control-label">Admin</label>
                       </div>
                       <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="user" name="role" checked>
+                        <input class="custom-control-input" type="radio" id="user" name="role" value="user" @if (old('role') == 'user') checked @endif>
                         <label for="user" class="custom-control-label">Pengguna</label>
                       </div>
                   </div>
+                  <div class="form-group">
+                    <label for="foto">Foto Profil</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input @error('foto') is-invalid @enderror" id="foto" name="foto" accept=".jpg, .jpeg, .png" value="{{old('foto')}}" required>
+                        @error('foto')
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                        <label class="custom-file-label" for="foto">Pilih file</label>
+                      </div>
+                    </div>
+                  </div>
+                  @foreach ($errors->all() as $e)
+                    {{$e}}
+                  @endforeach
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Simpan</button>
                   </div>
@@ -165,10 +194,14 @@
 @section('js_script')
 <script src="{{asset("js/moment.min.js")}}"></script>
 <script src="{{asset("js/jquery.inputmask.bundle.min.js")}}"></script>
+<script src="{{asset("js/bs-custom-file-input.min.js")}}"></script>
   <script>
     $(function () {
       //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+      $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
     })
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
   </script>
 @endsection
