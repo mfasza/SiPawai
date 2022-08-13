@@ -39,39 +39,16 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Muhammad Faza
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>Sudah Dibuat</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Rakai Al Baihaqi
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>Sudah Dibuat</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Oky Dewiyanti
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>Sudah Dibuat</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>O.S.A.N Jani Ode Tanda</td>
-                    <td></td>
-                    <td>Belum Dibuat</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Bintang Laras Teo Pamungkas</td>
-                    <td>12/12/2021</td>
-                    <td>Sudah Dibuat</td>
-                  </tr>
+                    @if ($spmts)
+                      @foreach ($spmts as $i => $k)
+                        <tr>
+                          <td>{{$i+1}}</td>
+                          <td>{{$k->nama}}</td>
+                          <td>{{$k->tgl_spmt}}</td>
+                          <td>{{$k->status}}</td>
+                        </tr>
+                      @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>

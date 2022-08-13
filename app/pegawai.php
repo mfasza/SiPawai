@@ -51,4 +51,14 @@ class pegawai extends Model
     {
         return $this->hasMany(dokumen_kgb::class, 'nip', 'nip');
     }
+    
+    /**
+     * one to many relationship with dokumen_spmts table
+     * 
+     * @var string
+     */
+    public function spmts()
+    {
+        return $this->hasMany(dokumen_spmt::class, 'nip', 'nip');
+    }
 }

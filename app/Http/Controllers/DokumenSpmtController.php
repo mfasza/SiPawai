@@ -3,10 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\dokumen_spmt;
+use App\Pegawai;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DokumenSpmtController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function monitoring()
+    {
+        // $pegawai = Pegawai::with('spmts')->select('nip', 'nama')->get();
+
+        $pegawai = Pegawai::select('nip', 'nama')->get();
+        $data = array();
+        foreach ($pegawai as $i => $p) {
+            if ($p->spmts->count() > 0) {
+                $tgl = Carbon::createFromFormat('Y-m-d', $p->spmts->first()->tgl_spmt);
+                $temp = [
+                    'nama' => $p->nama,
+                    'tgl_spmt' => $tgl->format('Y-m-d'),
+                    'status' => 'Sudah Dibuat'
+                ];
+                array_push($data, $temp);
+            } else {
+                $temp = [
+                    'nama' => $p->nama,
+                    'tgl_spmt' => '-',
+                    'status' => 'Belum Dibuat'
+                ];
+                array_push($data, $temp);
+            }
+        }
+        $spmts = json_decode(collect($data)->toJson());
+        
+        return view('spmt.spmt-monitoring', compact('spmts'));
+    }
+
     /**
      * Display a listing of the resource.
      *

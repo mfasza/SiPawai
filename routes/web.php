@@ -19,9 +19,7 @@ Route::middleware(['auth'])->prefix('kgb')->group(function () {
 });
 
 Route::middleware(['auth'])->prefix('spmt')->group(function () {
-    Route::get('/monitoring', function () {
-        return view('spmt.spmt-monitoring');
-    })->name('spmt.monitoring');
+    Route::get('/monitoring', 'DokumenSpmtController@monitoring')->name('spmt.monitoring');
     Route::get('/kelola', function () {
         return view('spmt.spmt-kelola');
     })->name('spmt.kelola')->middleware('isAdmin');

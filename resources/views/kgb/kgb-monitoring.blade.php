@@ -39,14 +39,16 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($kgbs as $i => $k)
-                      <tr>
-                        <td>{{$i+1}}</td>
-                        <td>{{$k->nama}}</td>
-                        <td>{{$k->kgb_terakhir}}</td>
-                        <td>{{$k->kgb_selanjutnya}}</td>
-                      </tr>
-                    @endforeach
+                    @if ($kgbs)
+                      @foreach ($kgbs as $i => $k)
+                        <tr>
+                          <td>{{$i+1}}</td>
+                          <td>{{$k->nama}}</td>
+                          <td>{{$k->kgb_terakhir}}</td>
+                          <td>{{$k->kgb_selanjutnya}}</td>
+                        </tr>
+                      @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>

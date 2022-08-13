@@ -27,6 +27,13 @@ class DokumenKgbController extends Controller
                     'kgb_selanjutnya' => $tgl->addYears(2)->format('Y-m-d')
                 ];
                 array_push($data, $temp);
+            } else {
+                $temp = [
+                    'nama' => $p->nama,
+                    'kgb_terakhir' => '-',
+                    'kgb_selanjutnya' => '-'
+                ];
+                array_push($data, $temp);
             }
         }
         $kgbs = json_decode(collect($data)->toJson());

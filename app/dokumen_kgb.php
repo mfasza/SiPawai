@@ -16,7 +16,7 @@ class dokumen_kgb extends Model
     ];
 
     /**
-     * many to one relationship with golongans table
+     * many to one relationship with pegawais table
      * 
      * @var string
      */
