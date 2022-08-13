@@ -12,9 +12,7 @@
 */
 
 Route::middleware(['auth'])->prefix('kgb')->group(function () {
-    Route::get('/monitoring', function () {
-        return view('kgb.kgb-monitoring');
-    })->name('kgb.monitoring');
+    Route::get('/monitoring', 'DokumenKgbController@monitoring')->name('kgb.monitoring');
     Route::get('/kelola', function () {
         return view('kgb.kgb-kelola');
     })->name('kgb.kelola')->middleware('isAdmin');

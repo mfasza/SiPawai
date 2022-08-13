@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(function () {
     $('#example1').DataTable({
-      "lengthChange": false,
+      "lengthChange": true,
     });
   });
 </script>

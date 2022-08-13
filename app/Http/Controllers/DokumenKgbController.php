@@ -3,10 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\dokumen_kgb;
+use App\Pegawai;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DokumenKgbController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function monitoring()
+    {
+        $pegawai = Pegawai::select('nip', 'nama')->get();
+        $data = array();
+        foreach ($pegawai as $i => $p) {
+            if ($p->kgbs->count() > 0) {
+                $tgl = Carbon::createFromFormat('Y-m-d', $p->kgbs->first()->tgl_kgb);
+                $temp = [
+                    'nama' => $p->nama,
+                    'kgb_terakhir' => $tgl->format('Y-m-d'),
+                    'kgb_selanjutnya' => $tgl->addYears(2)->format('Y-m-d')
+                ];
+                array_push($data, $temp);
+            }
+        }
+        $kgbs = json_decode(collect($data)->toJson());
+        
+        return view('kgb.kgb-monitoring', compact('kgbs'));
+    }
+
     /**
      * Display a listing of the resource.
      *

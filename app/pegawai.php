@@ -16,15 +16,6 @@ class pegawai extends Model
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 
-    ];
-
-    /**
      * override default primary key to nip column
      *
      * @var string
@@ -49,5 +40,15 @@ class pegawai extends Model
     public function golongans()
     {
         return $this->belongsTo(Golongan::class, 'id_golongan', 'id');
+    }
+    
+    /**
+     * one to many relationship with dokumen_kgbs table
+     * 
+     * @var string
+     */
+    public function kgbs()
+    {
+        return $this->hasMany(dokumen_kgb::class, 'nip', 'nip');
     }
 }

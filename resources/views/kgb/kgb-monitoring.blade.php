@@ -39,39 +39,14 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Muhammad Faza
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>12/12/2023</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Rakai Al Baihaqi
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>12/12/2023</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Oky Dewiyanti
-                    </td>
-                    <td>12/12/2021</td>
-                    <td>12/12/2023</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>O.S.A.N Jani Ode Tanda</td>
-                    <td>12/12/2020</td>
-                    <td>12/12/2022</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>Bintang Laras Teo Pamungkas</td>
-                    <td>12/12/2021</td>
-                    <td>12/12/2023</td>
-                  </tr>
+                    @foreach ($kgbs as $i => $k)
+                      <tr>
+                        <td>{{$i+1}}</td>
+                        <td>{{$k->nama}}</td>
+                        <td>{{$k->kgb_terakhir}}</td>
+                        <td>{{$k->kgb_selanjutnya}}</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

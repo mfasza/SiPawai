@@ -27,7 +27,7 @@
           <div class="col-sm-12">
             <div class="card">
               <div class="card-body">
-                <a href="{{route('pegawai.create')}}" class="btn btn-sm btn-success" role="button">Input Data Baru &nbsp;<i class="fas fa-plus"></i></a>
+                <a href="{{route('pegawai.create')}}" class="btn btn-sm btn-success mb-4" role="button">Input Data Baru &nbsp;<i class="fas fa-plus"></i></a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
