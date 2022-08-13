@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\dokumen_kgb;
 use App\Pegawai;
+use App\Golongan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,22 +17,28 @@ class DokumenKgbController extends Controller
      */
     public function monitoring()
     {
-        $pegawai = Pegawai::select('nip', 'nama')->get();
+        $pegawai = Pegawai::select('nip', 'nama', 'tmt_cpns', 'id_golongan')->get();
         $data = array();
         foreach ($pegawai as $i => $p) {
             if ($p->kgbs->count() > 0) {
-                $tgl = Carbon::createFromFormat('Y-m-d', $p->kgbs->first()->tgl_kgb);
+                $tgl_kgb = Carbon::createFromFormat('Y-m-d', $p->kgbs->first()->tgl_kgb);
+                $tmt_cpns = Carbon::createFromFormat('Y-m-d', $p->tmt_cpns);
                 $temp = [
                     'nama' => $p->nama,
-                    'kgb_terakhir' => $tgl->format('Y-m-d'),
-                    'kgb_selanjutnya' => $tgl->addYears(2)->format('Y-m-d')
+                    'kgb_terakhir' => $tgl_kgb->format('Y-m-d'),
+                    'kgb_selanjutnya' => $tmt_cpns->addYears($tmt_cpns->diffInYears($tgl_kgb) + 2)->format('Y-m-d')
                 ];
                 array_push($data, $temp);
             } else {
+                if ($p->golongans->golongan !== 2) {
+                    $tgl = Carbon::createFromFormat('Y-m-d', $p->tmt_cpns)->addYears(2);
+                } else {
+                    $tgl = Carbon::createFromFormat('Y-m-d', $p->tmt_cpns)->addYears(1);
+                }
                 $temp = [
                     'nama' => $p->nama,
                     'kgb_terakhir' => '-',
-                    'kgb_selanjutnya' => '-'
+                    'kgb_selanjutnya' => $tgl->format('Y-m-d')
                 ];
                 array_push($data, $temp);
             }
