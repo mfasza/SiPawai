@@ -56,6 +56,7 @@ class PegawaiController extends Controller
         $user->email = $validated['email'];
         $user->password = Hash::make($validated['password']);
         $user->nip = $validated['nip'];
+        $user->role = $validated['role'];
         if ($validated['foto']) {
             $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
             $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
@@ -111,6 +112,7 @@ class PegawaiController extends Controller
             $user->password = Hash::make($validated['password']);
         }
         $user->nip = $validated['nip'];
+        $user->role = $validated['role'];
         if (array_key_exists('foto', $validated)) {
             $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
             $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
