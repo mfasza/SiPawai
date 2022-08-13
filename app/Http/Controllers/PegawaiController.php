@@ -6,6 +6,7 @@ use App\pegawai;
 use App\golongan;
 use App\User;
 use App\Http\Requests\StorePegawai;
+use App\Http\Requests\updatePegawai;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -50,19 +51,18 @@ class PegawaiController extends Controller
         $pegawai->id_golongan = $validated['golongan'];
         $pegawai->tmt_cpns = $validated['tmt_cpns'];
         $pegawai->save();
-        
-        if ($validated['foto']) {
-            $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
-        }
-
+                
         $user = new User;
         $user->email = $validated['email'];
         $user->password = Hash::make($validated['password']);
         $user->nip = $validated['nip'];
-        $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
+        if ($validated['foto']) {
+            $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
+            $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
+        }
         $user->save();
-
-        return redirect()->route('pegawai.index');;
+        
+        return redirect()->route('pegawai.index');
     }
 
     /**
@@ -84,7 +84,8 @@ class PegawaiController extends Controller
      */
     public function edit(pegawai $pegawai)
     {
-        //
+        $golongans = Golongan::select(['id', 'nama_golongan'])->get();
+        return view('pegawai-edit', compact('pegawai', 'golongans'));
     }
 
     /**
@@ -94,9 +95,29 @@ class PegawaiController extends Controller
      * @param  \App\pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pegawai $pegawai)
+    public function update(updatePegawai $request, pegawai $pegawai)
     {
-        //
+        $validated = $request->validated();
+        $pegawai->nip = $validated['nip'];
+        $pegawai->nama = $validated['nama'];
+        $pegawai->jabatan = $validated['jabatan'];
+        $pegawai->id_golongan = $validated['golongan'];
+        $pegawai->tmt_cpns = $validated['tmt_cpns'];
+        $pegawai->save();
+        
+        $user = $pegawai->users;
+        $user->email = $validated['email'];
+        if ($validated['password']) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $user->nip = $validated['nip'];
+        if (array_key_exists('foto', $validated)) {
+            $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
+            $user->foto = "\img\\".$validated['foto']->getClientOriginalName();
+        }
+        $user->save();
+
+        return redirect()->route('pegawai.index');
     }
 
     /**

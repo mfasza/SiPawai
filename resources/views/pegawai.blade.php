@@ -51,7 +51,7 @@
                       <td>{{$p->tmt_cpns}}</td>
                       <td>
                         <div>
-                          <a href="#" class="btn btn-sm btn-primary" role="button">Ubah</a>
+                          <a href="{{route('pegawai.edit', $p->nip)}}" class="btn btn-sm btn-primary" role="button">Ubah</a>
                           <a href="#" class="btn btn-sm btn-danger hapus" data-nip="{{$p->nip}}" data-nama="{{$p->nama}}" data-toggle="modal" data-target="#modal_hapus" role="button">Hapus</a>
                         </div>
                       </td>

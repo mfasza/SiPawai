@@ -38,7 +38,7 @@ class pegawai extends Model
      */
     public function users()
     {
-        return $this->hasOne(Pegawai::class, 'nip', 'nip');
+        return $this->hasOne(User::class, 'nip', 'nip');
     }
 
     /**
