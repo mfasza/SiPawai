@@ -86,7 +86,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label>TMT CPNS:</label>
+                      <label>TMT CPNS</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -190,6 +190,7 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+</div>
 @endsection
 @section('js_script')
 <script src="{{asset("js/moment.min.js")}}"></script>

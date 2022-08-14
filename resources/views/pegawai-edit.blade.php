@@ -7,13 +7,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Input Data Pegawai</h1>
+            <h1 class="m-0 text-dark">Edit Data Pegawai</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
               <li class="breadcrumb-item active"><a href="{{ route('pegawai.index') }}">Kelola Pegawai</a></li>
-              <li class="breadcrumb-item active">Input Data Pegawai</li>
+              <li class="breadcrumb-item active">Edit Data Pegawai</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -86,7 +86,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label>TMT CPNS:</label>
+                      <label>TMT CPNS</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -187,6 +187,7 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+</div>
 @endsection
 @section('js_script')
 <script src="{{asset("js/moment.min.js")}}"></script>

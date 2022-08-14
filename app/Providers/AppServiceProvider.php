@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //compose all the views....
-        view()->composer(['home', 'pegawai', 'pegawai-create', 'pegawai-edit', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'kgb.kgb-monitoring', 'kgb.kgb-kelola'], function ($view) 
+        view()->composer(['home', 'pegawai', 'pegawai-create', 'pegawai-edit', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'spmt.spmt-create', 'kgb.kgb-monitoring', 'kgb.kgb-kelola', 'kgb.kgb-create'], function ($view) 
         {
             $user = Pegawai::join('users', 'pegawais.nip', '=', 'users.nip')->find(Auth::user()->nip);
             

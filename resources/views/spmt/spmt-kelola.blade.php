@@ -45,7 +45,7 @@
                         <td>{{$p->tmt_cpns}}</td>
                         <td>
                           <div>
-                            <a href="#" class="btn btn-primary" role="button">Buat</a>
+                            <a href="{{route('spmt.create', $p->nip)}}" class="btn btn-primary" role="button">Buat</a>
                             <a href="#" class="btn btn-success" role="button">Upload</a>
                           </div>
                         </td>

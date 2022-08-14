@@ -65,9 +65,9 @@ class DokumenKgbController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Pegawai $pegawai)
     {
-        //
+        return view('kgb.kgb-create', compact('pegawai'));
     }
 
     /**
@@ -78,7 +78,7 @@ class DokumenKgbController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('kgb.surat-kgb');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\dokumen_spmt;
 use App\Pegawai;
+use App\Golongan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,7 @@ class DokumenSpmtController extends Controller
      */
     public function index()
     {
-        $pegawai = Pegawai::select('nama', 'tmt_cpns')->get();
+        $pegawai = Pegawai::select('nip', 'nama', 'tmt_cpns')->get();
 
         return view('spmt.spmt-kelola', compact('pegawai'));
     }
@@ -60,9 +61,9 @@ class DokumenSpmtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Pegawai $pegawai)
     {
-        //
+        return view('spmt.spmt-create', compact('pegawai'));
     }
 
     /**
@@ -73,7 +74,7 @@ class DokumenSpmtController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('spmt.surat-spmt');
     }
 
     /**
