@@ -55,7 +55,9 @@ class DokumenKgbController extends Controller
      */
     public function index()
     {
-        //
+        $pegawai = Pegawai::select('nip', 'nama', 'id_golongan', 'tmt_cpns')->get();
+
+        return view('kgb.kgb-kelola', compact('pegawai'));
     }
 
     /**

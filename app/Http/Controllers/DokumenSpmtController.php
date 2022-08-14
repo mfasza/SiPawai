@@ -50,7 +50,9 @@ class DokumenSpmtController extends Controller
      */
     public function index()
     {
-        //
+        $pegawai = Pegawai::select('nama', 'tmt_cpns')->get();
+
+        return view('spmt.spmt-kelola', compact('pegawai'));
     }
 
     /**
