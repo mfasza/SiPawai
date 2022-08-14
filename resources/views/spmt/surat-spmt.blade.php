@@ -97,7 +97,7 @@
                             <p class="m-0">:</p>
                         </td>
                         <td>
-                            <p class="m-0">Pembina, ({{$pimpinan->golongans->nama_golongan}})</p>
+                            <p class="m-0">{{$pimpinan->golongans->pangkat_golongan}}, ({{$pimpinan->golongans->nama_golongan}})</p>
                         </td>
                     </tr>
                     <tr>
@@ -145,7 +145,7 @@
                             <p class="m-0">:</p>
                         </td>
                         <td>
-                            <p class="m-0">Pembina, ({{$pegawai->golongans->nama_golongan}})</p>
+                            <p class="m-0">{{$pegawai->golongans->pangkat_golongan}}, ({{$pegawai->golongans->nama_golongan}})</p>
                         </td>
                     </tr>
                     <tr>
