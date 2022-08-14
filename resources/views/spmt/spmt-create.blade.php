@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-body">
                 <a href="{{route('spmt.kelola')}}" class="btn btn-sm btn-secondary" role="button"><i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
-                <form action="{{route('spmt.store', ['nip' => $pegawai->nip])}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('spmt.store', ['nip' => $pegawai->nip])}}" method="POST" enctype="multipart/form-data" target="_blank">
                   @csrf
                   @method("post")
                   <div class="card-body">
@@ -96,7 +96,7 @@
                     <!-- /.input group -->
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                    <button type="submit" class="btn btn-primary float-right">Generate Dokumen</button>
                   </div>
                 </form>
               </div>

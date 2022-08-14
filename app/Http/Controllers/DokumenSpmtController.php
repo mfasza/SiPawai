@@ -7,6 +7,7 @@ use App\Pegawai;
 use App\Golongan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class DokumenSpmtController extends Controller
 {
@@ -84,7 +85,8 @@ class DokumenSpmtController extends Controller
         $thn_sk_pusat = Carbon::parse($request->tgl_sk_pusat)->formatLocalized('%Y');
         $pimpinan = Pegawai::find($request->pimpinan);
         
-        return view('spmt.surat-spmt', compact('pegawai', 'today', 'tgl_spmt', 'nomor_surat', 'pimpinan', 'sk_pusat', 'tgl_sk_pusat', 'thn_sk_pusat'));
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'potrait')->loadview('spmt.surat-spmt', compact('pegawai', 'today', 'tgl_spmt', 'nomor_surat', 'pimpinan', 'sk_pusat', 'tgl_sk_pusat', 'thn_sk_pusat'));
+        return $pdf->stream("spmt-".$pegawai->nama.".pdf");
     }
 
     /**
