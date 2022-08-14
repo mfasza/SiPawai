@@ -63,7 +63,8 @@ class DokumenSpmtController extends Controller
      */
     public function create(Pegawai $pegawai)
     {
-        return view('spmt.spmt-create', compact('pegawai'));
+        $pegawais = Pegawai::select('nip', 'nama')->get();
+        return view('spmt.spmt-create', compact('pegawai', 'pegawais'));
     }
 
     /**
@@ -74,7 +75,16 @@ class DokumenSpmtController extends Controller
      */
     public function store(Request $request)
     {
-        return view('spmt.surat-spmt');
+        $pegawai = Pegawai::find($request->nip);
+        $today = Carbon::now()->formatLocalized('%d %B %Y');
+        $tgl_spmt = Carbon::parse($request->tgl_spmt)->formatLocalized('%d %B %Y');
+        $nomor_surat = $request->nomor_surat;
+        $sk_pusat = $request->sk_pusat;
+        $tgl_sk_pusat = Carbon::parse($request->tgl_sk_pusat)->formatLocalized('%d %B %Y');
+        $thn_sk_pusat = Carbon::parse($request->tgl_sk_pusat)->formatLocalized('%Y');
+        $pimpinan = Pegawai::find($request->pimpinan);
+        
+        return view('spmt.surat-spmt', compact('pegawai', 'today', 'tgl_spmt', 'nomor_surat', 'pimpinan', 'sk_pusat', 'tgl_sk_pusat', 'thn_sk_pusat'));
     }
 
     /**

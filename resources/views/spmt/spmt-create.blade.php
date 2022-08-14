@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-body">
                 <a href="{{route('spmt.kelola')}}" class="btn btn-sm btn-secondary" role="button"><i class="fas fa-arrow-left"></i>&nbsp; Kembali</a>
-                <form action="{{route('spmt.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('spmt.store', ['nip' => $pegawai->nip])}}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method("post")
                   <div class="card-body">
@@ -48,7 +48,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input name="tgl_spmt" id="datemask" type="text" class="form-control @error('tgl_spmt') is-invalid @enderror" value="{{old('tgl_spmt')}}" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask placeholder="Masukkan Tanggal SPMT" required>
+                        <input name="tgl_spmt" type="text" class="form-control datemask @error('tgl_spmt') is-invalid @enderror" value="{{old('tgl_spmt')}}" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask placeholder="Masukkan Tanggal SPMT" required>
                         @error('tgl_spmt')
                           <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -57,6 +57,43 @@
                       </div>
                       <!-- /.input group -->
                     </div>
+                    <div class="form-group">
+                      <label>Pimpinan</label>
+                      <select name="pimpinan" class="custom-select @error('pimpinan') is-invalid @enderror" required>
+                        <option value="0">Pilih Pimpinan BPS Kabupaten Mappi...</option>
+                        @foreach ($pegawais as $p)
+                          <option value="{{$p->nip}}" @if (old('pimpinan') == $p->nip) selected @endif>{{$p->nama}}</option>
+                        @endforeach
+                    </select>
+                    @error('pimpinan')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="sk_pusat">Nomor SK BPS Pusat</label>
+                    <input name="sk_pusat" type="text" class="form-control @error('sk_pusat') is-invalid @enderror" id="sk_pusat" placeholder="Masukkan Nomor SK Penempatan BPS Pusat..." value="{{old('sk_pusat')}}" required>
+                    @error('sk_pusat')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal SK BPS Pusat</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input name="tgl_sk_pusat" type="text" class="form-control datemask @error('tgl_sk_pusat') is-invalid @enderror" value="{{old('tgl_sk_pusat')}}" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask placeholder="Masukkan Tanggal SK Penempatan BPS Pusat..." required>
+                      @error('tgl_sk_pusat')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <!-- /.input group -->
                   </div>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Simpan</button>
@@ -111,7 +148,7 @@
   <script>
     $(function () {
       //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
+      $('.datemask').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
     })
     $(document).ready(function () {
       bsCustomFileInput.init();

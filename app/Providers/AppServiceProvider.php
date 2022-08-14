@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        setlocale(LC_ALL, 'IND');
         //compose all the views....
         view()->composer(['home', 'pegawai', 'pegawai-create', 'pegawai-edit', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'spmt.spmt-create', 'kgb.kgb-monitoring', 'kgb.kgb-kelola', 'kgb.kgb-create'], function ($view) 
         {
