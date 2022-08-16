@@ -14,14 +14,15 @@
 Route::middleware(['auth'])->prefix('kgb')->group(function () {
     Route::get('/monitoring', 'DokumenKgbController@monitoring')->name('kgb.monitoring');
     Route::get('/kelola', 'DokumenKgbController@index')->name('kgb.kelola')->middleware('isAdmin');
-    Route::get('/{pegawai}/create', 'DokumenKgbController@create')->name('kgb.create')->middleware('isAdmin');
+    Route::get('/kelola/{pegawai}/create', 'DokumenKgbController@create')->name('kgb.create')->middleware('isAdmin');
     Route::post('/store', 'DokumenKgbController@store')->name('kgb.store')->middleware('isAdmin');
 });
 
 Route::middleware(['auth'])->prefix('spmt')->group(function () {
     Route::get('/monitoring', 'DokumenSpmtController@monitoring')->name('spmt.monitoring');
     Route::get('/kelola', 'DokumenSpmtController@index')->name('spmt.kelola')->middleware('isAdmin');
-    Route::get('/{pegawai}/create', 'DokumenSpmtController@create')->name('spmt.create')->middleware('isAdmin');
+    Route::get('/kelola/{pegawai}/create', 'DokumenSpmtController@create')->name('spmt.create')->middleware('isAdmin');
+    Route::post('/generate', 'DokumenSpmtController@generate')->name('spmt.generate')->middleware('isAdmin');
     Route::post('/store', 'DokumenSpmtController@store')->name('spmt.store')->middleware('isAdmin');
 });
 

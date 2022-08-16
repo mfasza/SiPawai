@@ -23,12 +23,17 @@ class DokumenSpmtController extends Controller
         $pegawai = Pegawai::select('nip', 'nama')->get();
         $data = array();
         foreach ($pegawai as $i => $p) {
-            if ($p->spmts->count() > 0) {
-                $tgl = Carbon::createFromFormat('Y-m-d', $p->spmts->first()->tgl_spmt);
+            if ($p->spmts) {
+                $tgl = Carbon::createFromFormat('Y-m-d', $p->spmts->tgl_spmt);
+                if ($p->spmts->file_loc) {
+                    $status = "Sudah Dibuat";
+                } else {
+                    $status = "Surat Belum Diunggah";
+                }
                 $temp = [
                     'nama' => $p->nama,
                     'tgl_spmt' => $tgl->format('Y-m-d'),
-                    'status' => 'Sudah Dibuat'
+                    'status' => $status
                 ];
                 array_push($data, $temp);
             } else {
@@ -69,12 +74,12 @@ class DokumenSpmtController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * generate a newly created resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function generate(Request $request)
     {
         $pegawai = Pegawai::find($request->nip);
         $today = Carbon::now()->formatLocalized('%d %B %Y');
@@ -84,9 +89,26 @@ class DokumenSpmtController extends Controller
         $tgl_sk_pusat = Carbon::parse($request->tgl_sk_pusat)->formatLocalized('%d %B %Y');
         $thn_sk_pusat = Carbon::parse($request->tgl_sk_pusat)->formatLocalized('%Y');
         $pimpinan = Pegawai::find($request->pimpinan);
-        
+
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper('a4', 'potrait')->loadview('spmt.surat-spmt', compact('pegawai', 'today', 'tgl_spmt', 'nomor_surat', 'pimpinan', 'sk_pusat', 'tgl_sk_pusat', 'thn_sk_pusat'));
         return $pdf->stream("spmt-".$pegawai->nama.".pdf");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $spmt = new dokumen_spmt();
+        $spmt->no_surat = $request->nomor_surat;
+        $spmt->tgl_spmt = $request->tgl_spmt;
+        $spmt->nip = $request->nip;
+        $spmt->save();
+        
+        return redirect()->route('spmt.kelola');
     }
 
     /**

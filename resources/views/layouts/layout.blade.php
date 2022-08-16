@@ -198,7 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#kgb-link').addClass("active");
       $('#kgb-monitoring').addClass("active");
     }
-    if (loc == "/sipawai/public/kgb/kelola" && window.location.href.indexOf("kgb") > -1) {
+    if (window.location.href.indexOf("/sipawai/public/kgb/kelola") > -1) {
       $('#kgb-tree').addClass("menu-open");
       $('#kgb-link').addClass("active");
       $('#kgb-kelola').addClass("active");
@@ -208,7 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       $('#spmt-link').addClass("active");
       $('#spmt-monitoring').addClass("active");
     }
-    if (loc == "/sipawai/public/spmt/kelola" && window.location.href.indexOf("spmt") > -1) {
+    if (window.location.href.indexOf("/sipawai/public/spmt/kelola") > -1) {
       $('#spmt-tree').addClass("menu-open");
       $('#spmt-link').addClass("active");
       $('#spmt-kelola').addClass("active");

@@ -45,8 +45,15 @@
                         <td>{{$p->tmt_cpns}}</td>
                         <td>
                           <div>
-                            <a href="{{route('spmt.create', $p->nip)}}" class="btn btn-primary" role="button">Buat</a>
-                            <a href="#" class="btn btn-success" role="button">Upload</a>
+                            @if ($p->spmts)
+                              @if ($p->spmts->file_loc)
+                                <a href="#" class="btn btn-warning" role="button">Lihat</a>
+                              @else
+                                <a href="#" class="btn btn-success" role="button">Upload</a>
+                              @endif
+                            @else
+                              <a href="{{route('spmt.create', $p->nip)}}" class="btn btn-primary" role="button">Buat</a>
+                            @endif
                           </div>
                         </td>
                       </tr>

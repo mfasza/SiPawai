@@ -59,6 +59,6 @@ class pegawai extends Model
      */
     public function spmts()
     {
-        return $this->hasMany(dokumen_spmt::class, 'nip', 'nip');
+        return $this->hasOne(dokumen_spmt::class, 'nip', 'nip');
     }
 }

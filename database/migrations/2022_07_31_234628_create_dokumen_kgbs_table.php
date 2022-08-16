@@ -17,7 +17,7 @@ class CreateDokumenKgbsTable extends Migration
             $table->bigIncrements('id');
             $table->string('no_surat');
             $table->date('tgl_kgb');
-            $table->string('file_loc');
+            $table->string('file_loc')->nullable();
             $table->bigInteger('nip')->unsigned();
             $table->timestamps();
             $table->foreign('nip')->references('nip')->on('pegawais')->onUpdate('cascade')->onDelete('cascade');
