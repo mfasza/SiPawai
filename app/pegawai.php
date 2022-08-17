@@ -61,4 +61,14 @@ class pegawai extends Model
     {
         return $this->hasOne(dokumen_spmt::class, 'nip', 'nip');
     }
+    
+    /**
+     * one to one relationship with gajis table
+     * 
+     * @var string
+     */
+    public function gajis()
+    {
+        return $this->hasOne(gaji::class, 'nip', 'nip');
+    }
 }

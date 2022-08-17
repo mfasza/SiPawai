@@ -48,8 +48,9 @@
                       <td>
                         <div>
                           <a href="{{route('kgb.create', $p->nip)}}" class="btn btn-primary" role="button">Buat</a>
-                          <a href="#" class="btn btn-success" role="button">Upload</a>
-                          <a href="#" class="btn btn-warning" role="button">Lihat</a>
+                          @if ($p->kgbs->count() > 0)
+                            <a href="#" class="btn btn-warning" role="button">Lihat</a>
+                          @endif
                         </div>
                       </td>
                     </tr>

@@ -15,6 +15,7 @@ Route::middleware(['auth'])->prefix('kgb')->group(function () {
     Route::get('/monitoring', 'DokumenKgbController@monitoring')->name('kgb.monitoring');
     Route::get('/kelola', 'DokumenKgbController@index')->name('kgb.kelola')->middleware('isAdmin');
     Route::get('/kelola/{pegawai}/create', 'DokumenKgbController@create')->name('kgb.create')->middleware('isAdmin');
+    Route::post('/generate', 'DokumenKgbController@generate')->name('kgb.generate')->middleware('isAdmin');
     Route::post('/store', 'DokumenKgbController@store')->name('kgb.store')->middleware('isAdmin');
 });
 
