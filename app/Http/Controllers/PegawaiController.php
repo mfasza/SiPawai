@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use File;
 use App\pegawai;
 use App\golongan;
 use App\User;
@@ -59,7 +60,7 @@ class PegawaiController extends Controller
         $user->role = $validated['role'];
         if ($validated['foto']) {
             $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
-            $user->foto = "/img//".$validated['foto']->getClientOriginalName();
+            $user->foto = "/img/".$validated['foto']->getClientOriginalName();
         }
         $user->save();
         
@@ -114,8 +115,9 @@ class PegawaiController extends Controller
         $user->nip = $validated['nip'];
         $user->role = $validated['role'];
         if (array_key_exists('foto', $validated)) {
+            File::delete(public_path($pegawai->users->foto));
             $validated['foto']->move('img', $validated['foto']->getClientOriginalName());
-            $user->foto = "/img//".$validated['foto']->getClientOriginalName();
+            $user->foto = "/img/".$validated['foto']->getClientOriginalName();
         }
         $user->save();
 

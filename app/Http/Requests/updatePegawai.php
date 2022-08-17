@@ -35,7 +35,7 @@ class updatePegawai extends FormRequest
             'email' => ['required', 'email', 'unique:users,email,'.$pegawai->users->email.',email', 'ends_with:@bps.go.id'],
             'password' => ['nullable', 'alpha_num', 'min:8'],
             'role' => ['nullable'],
-            'foto' => ['nullable', 'image']
+            'foto' => ['nullable']
         ];
     }
 

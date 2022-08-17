@@ -122,7 +122,7 @@ class DokumenSpmtController extends Controller
     {
         $spmt = dokumen_spmt::where('nip', '=', $request->nip)->first();
         $request->doc_spmt->move('spmt', $request->doc_spmt->getClientOriginalName());
-        $spmt->file_loc = "/spmt//".$request->doc_spmt->getClientOriginalName();
+        $spmt->file_loc = "/spmt/".$request->doc_spmt->getClientOriginalName();
         $spmt->save();
         
         return redirect()->route('spmt.kelola');

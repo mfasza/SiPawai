@@ -33,7 +33,7 @@ class StorePegawai extends FormRequest
             'email' => ['required', 'unique:users,email','email', 'ends_with:@bps.go.id'],
             'password' => ['required', 'alpha_num', 'min:8'],
             'role' => ['nullable'],
-            'foto' => ['required', 'image']
+            'foto' => ['required']
         ];
     }
 
