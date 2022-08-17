@@ -32,7 +32,7 @@ class updatePegawai extends FormRequest
             'golongan' => ['required', 'gt:0'],
             'status' => ['required'],
             'tmt_cpns' => ['required', 'date', 'before:'.date('Y-m-d')],
-            'email' => ['required', 'email', 'ends_with:@bps.go.id'],
+            'email' => ['required', 'email', 'unique:users,email,'.$pegawai->users->email.',email', 'ends_with:@bps.go.id'],
             'password' => ['nullable', 'alpha_num', 'min:8'],
             'role' => ['nullable'],
             'foto' => ['nullable', 'image']
@@ -52,6 +52,7 @@ class updatePegawai extends FormRequest
             'golongan.gt' => 'Mohon pilih golongan',
             'tmt_cpns.before' => 'Tanggal TMT harus sebelum '.date('Y-m-d'),
             'email.ends_with' => 'Mohon gunakan email BPS',
+            'email.unique' => 'Email sudah dipakai',
             'password.min' => 'Password minimal 8 karakter',
             'foto.mimes' => 'Format file yang bisa diunggah hanya .png, .jpg, atau .jpeg'
         ];

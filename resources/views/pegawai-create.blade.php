@@ -133,19 +133,16 @@
                     <label for="foto">Foto Profil</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input @error('foto') is-invalid @enderror" id="foto" name="foto" accept=".jpg, .jpeg, .png" value="{{old('foto')}}" required>
-                        @error('foto')
-                          <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                          </span>
-                        @enderror
+                        <input type="file" class="custom-file-input @error('foto') is-invalid @enderror" id="foto" name="foto" accept=".jpg,.jpeg,.png" value="{{old('foto')}}" required>
                         <label class="custom-file-label" for="foto">Pilih file</label>
                       </div>
                     </div>
+                    @error('foto')
+                    <span class="text-danger small">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
-                  @foreach ($errors->all() as $e)
-                    {{$e}}
-                  @endforeach
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Simpan</button>
                   </div>

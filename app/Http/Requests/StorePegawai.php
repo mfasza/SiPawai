@@ -30,7 +30,7 @@ class StorePegawai extends FormRequest
             'golongan' => ['required', 'gt:0'],
             'status' => ['required'],
             'tmt_cpns' => ['required', 'date', 'before:'.date('Y-m-d')],
-            'email' => ['required', 'email', 'ends_with:@bps.go.id'],
+            'email' => ['required', 'unique:users,email','email', 'ends_with:@bps.go.id'],
             'password' => ['required', 'alpha_num', 'min:8'],
             'role' => ['nullable'],
             'foto' => ['required', 'image']

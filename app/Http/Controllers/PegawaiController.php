@@ -130,6 +130,7 @@ class PegawaiController extends Controller
      */
     public function destroy(pegawai $pegawai)
     {
+        File::delete(public_path($pegawai->users->foto));
         $pegawai->delete();
         return redirect(route('pegawai.index'));
     }

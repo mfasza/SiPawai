@@ -110,6 +110,22 @@ class DokumenSpmtController extends Controller
         
         return redirect()->route('spmt.kelola');
     }
+    
+    /**
+     * Store a documen of resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upload(Request $request)
+    {
+        $spmt = dokumen_spmt::where('nip', '=', $request->nip)->first();
+        $request->doc_spmt->move('spmt', $request->doc_spmt->getClientOriginalName());
+        $spmt->file_loc = "\spmt\\".$request->doc_spmt->getClientOriginalName();
+        $spmt->save();
+        
+        return redirect()->route('spmt.kelola');
+    }
 
     /**
      * Display the specified resource.
@@ -117,9 +133,11 @@ class DokumenSpmtController extends Controller
      * @param  \App\dokumen_spmt  $dokumen_spmt
      * @return \Illuminate\Http\Response
      */
-    public function show(dokumen_spmt $dokumen_spmt)
+    public function show(Request $request)
     {
-        //
+        $spmt = dokumen_spmt::where('nip', '=', $request->nip)->first();
+
+        return response()->file(public_path($spmt->file_loc));
     }
 
     /**
@@ -151,8 +169,12 @@ class DokumenSpmtController extends Controller
      * @param  \App\dokumen_spmt  $dokumen_spmt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dokumen_spmt $dokumen_spmt)
+    public function destroy(Request $request)
     {
-        //
+        $spmt = dokumen_spmt::where('nip', '=', $request->nip)->first();
+        File::delete(public_path($spmt->file_loc));
+        $spmt->delete();
+
+        return redirect()->route('spmt.kelola');
     }
 }
