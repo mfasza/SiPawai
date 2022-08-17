@@ -134,14 +134,14 @@
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input @error('foto') is-invalid @enderror" id="foto" name="foto" accept=".jpg, .jpeg, .png" value="{{old('foto')}}">
-                        @error('foto')
-                          <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                          </span>
-                        @enderror
                         <label class="custom-file-label" for="foto">Pilih file</label>
                       </div>
                     </div>
+                    @error('foto')
+                      <span class="text-danger small" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Simpan</button>
