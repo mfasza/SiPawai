@@ -149,6 +149,12 @@
                       <div class="form-group">
                         <label for="gaji_lama">Gaji Lama</label>
                         <input name="gaji_lama" type="number" class="form-control @error('gaji_lama') is-invalid @enderror" id="gaji_lama" placeholder="Masukkan Gaji Sebelumnya..." value="{{$pegawai->gajis->gaji}}" readonly>
+                        @error('gaji_lama')
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                        <a id="edit_gaji_lama" class="small" href="#" role="button">Klik untuk merubah nilai gaji lama</a>
                       </div>
                     @endif
                     <div class="form-group">
@@ -223,32 +229,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <div class="modal fade" id="modal_hapus">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Hapus Data</h4></h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-          <p>Apakah Anda yakin akan menghapus data <span id="info"></span>&quest;</p>
-          <form id="form_hapus" action="{{url('pegawai/')}}" method="post">
-            @method("delete")
-            @csrf
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button>
-          <button type="submit" class="btn btn-danger">Hapus</button>
-        </div>
-          </form>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
 @endsection
 @section('js_script')
 <script src="{{asset("js/moment.min.js")}}"></script>
@@ -262,5 +242,11 @@
     $(document).ready(function () {
       bsCustomFileInput.init();
     });
+    $(document).ready(function () {
+      $('#edit_gaji_lama').on('click', function (event) {
+        event.preventDefault();
+        $('#gaji_lama').removeAttr('readonly');
+      })
+    })
   </script>
 @endsection

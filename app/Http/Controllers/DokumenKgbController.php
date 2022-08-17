@@ -147,23 +147,32 @@ class DokumenKgbController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\dokumen_kgb  $dokumen_kgb
+     * @param  \App\pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function show(dokumen_kgb $dokumen_kgb)
+    public function show(pegawai $pegawai)
     {
-        //
+        $doc_kgbs = $pegawai->kgbs->all();
+
+        return view('kgb.kgb-pegawai', compact('pegawai', 'doc_kgbs'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * upload dokumen KGB.
      *
      * @param  \App\dokumen_kgb  $dokumen_kgb
      * @return \Illuminate\Http\Response
      */
-    public function edit(dokumen_kgb $dokumen_kgb)
+    public function upload(Request $request)
     {
-        //
+        $kgb = dokumen_kgb::find($request->id_doc);
+        if ($request->hasFile('doc_kgb')) {
+            $request->doc_kgb->move('kgb', $request->doc_kgb->getClientOriginalName());
+            $kgb->file_loc = "/kgb/".$request->doc_kgb->getClientOriginalName();
+            $kgb->save();
+        }
+        
+        return redirect()->back();
     }
 
     /**
@@ -184,8 +193,14 @@ class DokumenKgbController extends Controller
      * @param  \App\dokumen_kgb  $dokumen_kgb
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dokumen_kgb $dokumen_kgb)
+    public function destroy(Request $request)
     {
-        //
+        $kgb = dokumen_kgb::find($request->id_doc);
+        if ($kgb->file_loc) {
+            File::delete(public_path($kgb->file_loc));
+        }
+        $kgb->delete();
+
+        return redirect()->back();
     }
 }

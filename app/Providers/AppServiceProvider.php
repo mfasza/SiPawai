@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         setlocale(LC_ALL, 'IND');
         //compose all the views....
-        view()->composer(['home', 'pegawai', 'pegawai-create', 'pegawai-edit', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'spmt.spmt-create', 'kgb.kgb-monitoring', 'kgb.kgb-kelola', 'kgb.kgb-create'], function ($view) 
+        view()->composer(['home', 'pegawai', 'pegawai-create', 'pegawai-edit', 'spmt.spmt-kelola', 'spmt.spmt-monitoring', 'spmt.spmt-create', 'kgb.kgb-monitoring', 'kgb.kgb-kelola', 'kgb.kgb-create', 'kgb.kgb-pegawai'], function ($view) 
         {
             $user = Pegawai::join('users', 'pegawais.nip', '=', 'users.nip')->find(Auth::user()->nip);
             

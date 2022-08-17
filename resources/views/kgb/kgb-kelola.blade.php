@@ -49,7 +49,7 @@
                         <div>
                           <a href="{{route('kgb.create', $p->nip)}}" class="btn btn-primary" role="button">Buat</a>
                           @if ($p->kgbs->count() > 0)
-                            <a href="#" class="btn btn-warning" role="button">Lihat</a>
+                            <a href="{{route('kgb.show', $p->nip)}}" class="btn btn-warning" role="button">Lihat</a>
                           @endif
                         </div>
                       </td>
