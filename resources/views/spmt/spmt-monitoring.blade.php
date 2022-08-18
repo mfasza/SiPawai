@@ -43,9 +43,15 @@
                       @foreach ($spmts as $i => $k)
                         <tr>
                           <td>{{$i+1}}</td>
-                          <td>{{$k->nama}}</td>
+                          <td>{{$k->nama}}</td> 
                           <td>{{$k->tgl_spmt}}</td>
-                          <td>{{$k->status}}</td>
+                          <td>
+                            @if ($k->tgl_spmt !== '-')
+                              <a class="text-success" href="{{route('spmt.show.user', ['nip'=> $k->nip])}}" target="_blank">{{$k->status}}</a>
+                            @else
+                              {{$k->status}}
+                            @endif
+                          </td>
                         </tr>
                       @endforeach
                     @endif

@@ -43,7 +43,9 @@
                       @foreach ($kgbs as $i => $k)
                         <tr>
                           <td>{{$i+1}}</td>
-                          <td>{{$k->nama}}</td>
+                          <td>
+                            <a href="{{route('kgb.show.user', $k->nip)}}">{{$k->nama}}</a>
+                          </td>
                           <td>{{$k->kgb_terakhir}}</td>
                           <td>{{$k->kgb_selanjutnya}}</td>
                         </tr>

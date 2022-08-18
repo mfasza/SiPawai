@@ -24,9 +24,10 @@ class DokumenKgbController extends Controller
         $data = array();
         foreach ($pegawai as $i => $p) {
             if ($p->kgbs->count() > 0) {
-                $tgl_kgb = Carbon::createFromFormat('Y-m-d', $p->kgbs->first()->tgl_kgb);
+                $tgl_kgb = Carbon::createFromFormat('Y-m-d', $p->kgbs()->orderBy('tgl_kgb', 'desc')->first()->tgl_kgb);
                 $tmt_cpns = Carbon::createFromFormat('Y-m-d', $p->tmt_cpns);
                 $temp = [
+                    'nip' => $p->nip,
                     'nama' => $p->nama,
                     'kgb_terakhir' => $tgl_kgb->format('Y-m-d'),
                     'kgb_selanjutnya' => $tmt_cpns->addYears($tmt_cpns->diffInYears($tgl_kgb) + 2)->format('Y-m-d')
@@ -39,6 +40,7 @@ class DokumenKgbController extends Controller
                     $tgl = Carbon::createFromFormat('Y-m-d', $p->tmt_cpns)->addYears(1);
                 }
                 $temp = [
+                    'nip' => $p->nip,
                     'nama' => $p->nama,
                     'kgb_terakhir' => '-',
                     'kgb_selanjutnya' => $tgl->format('Y-m-d')
@@ -155,6 +157,19 @@ class DokumenKgbController extends Controller
         $doc_kgbs = $pegawai->kgbs->all();
 
         return view('kgb.kgb-pegawai', compact('pegawai', 'doc_kgbs'));
+    }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\pegawai  $pegawai
+     * @return \Illuminate\Http\Response
+     */
+    public function showUser(pegawai $pegawai)
+    {
+        $doc_kgbs = $pegawai->kgbs->all();
+
+        return view('kgb.kgb-pegawai-user', compact('pegawai', 'doc_kgbs'));
     }
 
     /**

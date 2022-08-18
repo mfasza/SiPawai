@@ -20,6 +20,7 @@ Route::middleware(['auth'])->prefix('kgb')->group(function () {
     Route::post('/store', 'DokumenKgbController@store')->name('kgb.store')->middleware('isAdmin');
     Route::post('/upload', 'DokumenKgbController@upload')->name('kgb.upload')->middleware('isAdmin');
     Route::delete('/destroy', 'DokumenKgbController@destroy')->name('kgb.destroy')->middleware('isAdmin');
+    Route::get('/kelola/show/{pegawai}', 'DokumenKgbController@showUser')->name('kgb.show.user');
 });
 
 Route::middleware(['auth'])->prefix('spmt')->group(function () {
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->prefix('spmt')->group(function () {
     Route::post('/store', 'DokumenSpmtController@store')->name('spmt.store')->middleware('isAdmin');
     Route::post('/upload', 'DokumenSpmtController@upload')->name('spmt.upload')->middleware('isAdmin');
     Route::delete('/destroy', 'DokumenSpmtController@destroy')->name('spmt.destroy')->middleware('isAdmin');
+    Route::get('/show', 'DokumenSpmtController@show')->name('spmt.show.user');
 });
 
 Route::middleware(['auth', 'isAdmin'])->resource('pegawai', 'PegawaiController');

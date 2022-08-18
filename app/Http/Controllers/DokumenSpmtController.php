@@ -32,6 +32,7 @@ class DokumenSpmtController extends Controller
                     $status = "Surat Belum Diunggah";
                 }
                 $temp = [
+                    'nip' => $p->nip,
                     'nama' => $p->nama,
                     'tgl_spmt' => $tgl->format('Y-m-d'),
                     'status' => $status
@@ -39,6 +40,7 @@ class DokumenSpmtController extends Controller
                 array_push($data, $temp);
             } else {
                 $temp = [
+                    'nip' => $p->nip,
                     'nama' => $p->nama,
                     'tgl_spmt' => '-',
                     'status' => 'Belum Dibuat'
