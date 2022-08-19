@@ -123,7 +123,7 @@ class DokumenSpmtController extends Controller
     public function upload(Request $request)
     {
         $spmt = dokumen_spmt::where('nip', '=', $request->nip)->first();
-        if ($requst->hasFile('doc_spmt')) {
+        if ($request->hasFile('doc_spmt')) {
             $request->doc_spmt->move('spmt', $request->doc_spmt->getClientOriginalName());
             $spmt->file_loc = "/spmt/".$request->doc_spmt->getClientOriginalName();
             $spmt->save();
